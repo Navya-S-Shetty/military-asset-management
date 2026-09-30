@@ -180,6 +180,27 @@ def view_bases(request):
         })
 
     return JsonResponse(data, safe=False)
+
+def view_registration_bases(request):
+
+    if request.method != 'GET':
+        return JsonResponse(
+            {'error': 'Only GET method is allowed'},
+            status=405
+        )
+
+    bases = Base.objects.all().order_by('name')
+
+    data = []
+
+    for base in bases:
+        data.append({
+            'id': base.id,
+            'name': base.name,
+            'location': base.location
+        })
+
+    return JsonResponse(data, safe=False)
     
 @login_required
 def view_equipment(request):

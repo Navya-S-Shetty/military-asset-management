@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import (
     view_bases,
+    view_registration_bases,
     view_equipment,
     view_inventory,
     view_purchases,
@@ -17,6 +18,7 @@ from .views import (
 
 urlpatterns = [
     path('bases/', view_bases),
+    path('registration-bases/', view_registration_bases),
     path('equipment/', view_equipment),
     path('inventory/', view_inventory),
     path('purchases/', view_purchases),

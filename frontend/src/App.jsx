@@ -1878,7 +1878,7 @@ useEffect(() => {
     const fetchRegisterBases = async () => {
       try {
         const response = await fetch(
-          "https://military-asset-management-production-581c.up.railway.app/api/bases/",
+          "https://military-asset-management-production-581c.up.railway.app/api/registration-bases/",
           {
             credentials: "include",
           }
