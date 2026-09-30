@@ -1720,7 +1720,7 @@ function AuditLogsPage({ username }) {
   );
 }
 
-function AppHeader({ role, setPage }) {
+function AppHeader({ role, setPage, handleLogout }) {
   return (
     <header className="app-header">
       <div className="app-header-inner">
@@ -1760,6 +1760,10 @@ function AppHeader({ role, setPage }) {
               Audit Logs
             </button>
           )}
+
+          <button onClick={handleLogout}>
+  Logout
+</button>
 
         </nav>
 
@@ -1821,6 +1825,31 @@ const [registerBases, setRegisterBases] = useState([]);
       setMessage("Unable to connect to server");
     }
   };
+
+  const handleLogout = async () => {
+  try {
+    const response = await fetch(
+      "https://military-asset-management-production-581c.up.railway.app/api/logout/",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      setRole(null);
+      setUsername("");
+      setPassword("");
+      setAssignedBaseId(null);
+      setPage("dashboard");
+      setMessage("");
+    } else {
+      setMessage("Logout failed");
+    }
+  } catch (error) {
+    setMessage("Unable to connect to server");
+  }
+};
 
   const handleRegister = async (e) => {
   e.preventDefault();
@@ -1989,6 +2018,7 @@ if (page === "register") {
     return (
   <>
     <AppHeader
+  handleLogout={handleLogout}
       role={role}
       setPage={setPage}
     />
@@ -2002,6 +2032,7 @@ if (page === "register") {
     return (
   <>
     <AppHeader
+  handleLogout={handleLogout}
       role={role}
       setPage={setPage}
     />
@@ -2017,6 +2048,7 @@ if (page === "register") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2034,6 +2066,7 @@ if (page === "audit-logs") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2047,6 +2080,7 @@ if (page === "expenditures") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2064,6 +2098,7 @@ if (page === "expenditures") {
   return (
   <>
     <AppHeader
+  handleLogout={handleLogout}
       role={role}
       setPage={setPage}
     />
@@ -2078,6 +2113,7 @@ if (page === "expenditures") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2095,6 +2131,7 @@ if (page === "assignments") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2113,6 +2150,7 @@ if (page === "assignments") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2130,6 +2168,7 @@ if (page === "assignments") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2146,6 +2185,7 @@ if (page === "assignments") {
   return (
   <>
     <AppHeader
+  handleLogout={handleLogout}
       role={role}
       setPage={setPage}
     />
@@ -2160,6 +2200,7 @@ if (page === "assignments") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2177,6 +2218,7 @@ if (page === "assignments") {
   return (
     <>
       <AppHeader
+  handleLogout={handleLogout}
         role={role}
         setPage={setPage}
       />
@@ -2192,6 +2234,7 @@ if (page === "assignments") {
   return (
   <>
     <AppHeader
+  handleLogout={handleLogout}
       role={role}
       setPage={setPage}
     />

@@ -15,7 +15,7 @@ from .models import (
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 
@@ -69,6 +69,21 @@ def view_login(request):
         {'error': 'Only POST method is allowed'},
         status=405
     )
+
+@csrf_exempt
+def view_logout(request):
+
+    if request.method != 'POST':
+        return JsonResponse(
+            {'error': 'Only POST method is allowed'},
+            status=405
+        )
+
+    logout(request)
+
+    return JsonResponse({
+        'message': 'Logout successful'
+    })
 
 
 @csrf_exempt

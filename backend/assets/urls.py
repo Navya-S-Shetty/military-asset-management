@@ -10,6 +10,7 @@ from .views import (
     view_expenditures,
     view_dashboard,
     view_login,
+    view_logout,
     return_assignment,
     view_audit_logs,
     view_register
@@ -27,6 +28,7 @@ urlpatterns = [
     path('expenditures/', view_expenditures),
     path('dashboard/', view_dashboard),
     path('login/', view_login, name='login'),
+    path('logout/', view_logout),
     path('register/', view_register),
     path(
     'assignments/<int:assignment_id>/return/',
