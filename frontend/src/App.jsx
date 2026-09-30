@@ -20,10 +20,10 @@ function AdminDashboard({ username }) {
     const loadFilters = async () => {
       try {
         const [baseResponse, equipmentResponse] = await Promise.all([
-          fetch("http://localhost:8000/api/bases/", {
+          fetch("https://military-asset-management-production-581c.up.railway.app/api/bases/", {
             credentials: "include",
           }),
-          fetch("http://localhost:8000/api/equipment/", {
+          fetch("https://military-asset-management-production-581c.up.railway.app/api/equipment/", {
             credentials: "include",
           }),
         ]);
@@ -67,7 +67,7 @@ function AdminDashboard({ username }) {
           params.append("equipment_type_id", equipmentTypeId);
         }
 
-        const url = `http://localhost:8000/api/dashboard/?${params.toString()}`;
+        const url = `https://military-asset-management-production-581c.up.railway.app/api/dashboard/?${params.toString()}`;
 
         const response = await fetch(url, {
           credentials: "include",
@@ -270,7 +270,7 @@ useEffect(() => {
       }
 
       const response = await fetch(
-        `http://localhost:8000/api/dashboard/?${params.toString()}`,
+        `https://military-asset-management-production-581c.up.railway.app/api/dashboard/?${params.toString()}`,
         {
           credentials: "include",
         }
@@ -293,7 +293,7 @@ useEffect(() => {
 }, [date,  equipmentTypeId]);
 
 useEffect(() => {
-  fetch("http://localhost:8000/api/equipment/", {
+  fetch("https://military-asset-management-production-581c.up.railway.app/api/equipment/", {
     credentials: "include",
   })
     .then((response) => response.json())
@@ -477,15 +477,15 @@ function PurchasesPage({ username, role, assignedBaseId }) {
       const [purchaseResponse, baseResponse, equipmentResponse] =
   await Promise.all([
     fetch(
-      `http://localhost:8000/api/purchases/?purchase_date=${filterDate}&equipment_type_id=${filterEquipment}`,
+      `https://military-asset-management-production-581c.up.railway.app/api/purchases/?purchase_date=${filterDate}&equipment_type_id=${filterEquipment}`,
       {
         credentials: "include",
       }
     ),
-    fetch("http://localhost:8000/api/bases/", {
+    fetch("https://military-asset-management-production-581c.up.railway.app/api/bases/", {
       credentials: "include",
     }),
-    fetch("http://localhost:8000/api/equipment/", {
+    fetch("https://military-asset-management-production-581c.up.railway.app/api/equipment/", {
       credentials: "include",
     }),
   ]);
@@ -529,7 +529,7 @@ useEffect(() => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/purchases/",
+        "https://military-asset-management-production-581c.up.railway.app/api/purchases/",
         {
           method: "POST",
           headers: {
@@ -761,13 +761,13 @@ function TransfersPage({ username, role, assignedBaseId }) {
     try {
       const [transferResponse, baseResponse, equipmentResponse] =
         await Promise.all([
-          fetch("http://localhost:8000/api/transfers/", {
+          fetch("https://military-asset-management-production-581c.up.railway.app/api/transfers/", {
             credentials: "include",
           }),
-          fetch("http://localhost:8000/api/bases/", {
+          fetch("https://military-asset-management-production-581c.up.railway.app/api/bases/", {
             credentials: "include",
           }),
-          fetch("http://localhost:8000/api/equipment/", {
+          fetch("https://military-asset-management-production-581c.up.railway.app/api/equipment/", {
   credentials: "include",
 }),
         ]);
@@ -810,7 +810,7 @@ function TransfersPage({ username, role, assignedBaseId }) {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/transfers/",
+        "https://military-asset-management-production-581c.up.railway.app/api/transfers/",
         {
           method: "POST",
           headers: {
@@ -991,7 +991,7 @@ function AssignmentsPage({ username, role, assignedBaseId }) {
   const fetchAssignments = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/assignments/",
+        "https://military-asset-management-production-581c.up.railway.app/api/assignments/",
         {
           credentials: "include",
         }
@@ -1012,7 +1012,7 @@ function AssignmentsPage({ username, role, assignedBaseId }) {
   const fetchBases = async () => {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/bases/",
+      "https://military-asset-management-production-581c.up.railway.app/api/bases/",
       {
         credentials: "include",
       }
@@ -1034,7 +1034,7 @@ function AssignmentsPage({ username, role, assignedBaseId }) {
   const fetchEquipment = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/equipment/",
+        "https://military-asset-management-production-581c.up.railway.app/api/equipment/",
         {
           credentials: "include",
         }
@@ -1076,7 +1076,7 @@ function AssignmentsPage({ username, role, assignedBaseId }) {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/assignments/",
+        "https://military-asset-management-production-581c.up.railway.app/api/assignments/",
         {
           method: "POST",
           credentials: "include",
@@ -1118,7 +1118,7 @@ function AssignmentsPage({ username, role, assignedBaseId }) {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/assignments/${assignmentId}/return/`,
+        `https://military-asset-management-production-581c.up.railway.app/api/assignments/${assignmentId}/return/`,
         {
           method: "POST",
           credentials: "include",
@@ -1391,7 +1391,7 @@ const [formMessage, setFormMessage] = useState("");
     const fetchExpenditures = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/expenditures/",
+          "https://military-asset-management-production-581c.up.railway.app/api/expenditures/",
           {
             credentials: "include",
           }
@@ -1400,7 +1400,7 @@ const [formMessage, setFormMessage] = useState("");
         const fetchBases = async () => {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/bases/",
+      "https://military-asset-management-production-581c.up.railway.app/api/bases/",
       {
         credentials: "include",
       }
@@ -1419,7 +1419,7 @@ const [formMessage, setFormMessage] = useState("");
 const fetchEquipment = async () => {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/equipment/",
+      "https://military-asset-management-production-581c.up.railway.app/api/equipment/",
       {
         credentials: "include",
       }
@@ -1462,7 +1462,7 @@ fetchEquipment();
 
   try {
     const response = await fetch(
-      "http://localhost:8000/api/expenditures/",
+      "https://military-asset-management-production-581c.up.railway.app/api/expenditures/",
       {
         method: "POST",
         headers: {
@@ -1491,7 +1491,7 @@ fetchEquipment();
       setReason("");
 
       const updatedResponse = await fetch(
-        "http://localhost:8000/api/expenditures/",
+        "https://military-asset-management-production-581c.up.railway.app/api/expenditures/",
         {
           credentials: "include",
         }
@@ -1654,7 +1654,7 @@ function AuditLogsPage({ username }) {
     const fetchAuditLogs = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/audit-logs/",
+          "https://military-asset-management-production-581c.up.railway.app/api/audit-logs/",
           {
             credentials: "include",
           }
@@ -1794,7 +1794,7 @@ const [registerBases, setRegisterBases] = useState([]);
     setMessage("Logging in...");
 
     try {
-      const response = await fetch("http://localhost:8000/api/login/", {
+      const response = await fetch("https://military-asset-management-production-581c.up.railway.app/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1835,7 +1835,7 @@ const [registerBases, setRegisterBases] = useState([]);
 
   try {
     const response = await fetch(
-      "http://localhost:8000/api/register/",
+      "https://military-asset-management-production-581c.up.railway.app/api/register/",
       {
         method: "POST",
         headers: {
@@ -1878,7 +1878,7 @@ useEffect(() => {
     const fetchRegisterBases = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/bases/",
+          "https://military-asset-management-production-581c.up.railway.app/api/bases/",
           {
             credentials: "include",
           }
