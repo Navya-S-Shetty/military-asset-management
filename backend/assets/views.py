@@ -899,9 +899,7 @@ def view_dashboard(request):
             transfer.quantity for transfer in transfers_out
         )
 
-        print("PURCHASES:", total_purchases)
-        print("TRANSFERS IN:", total_transfers_in)
-        print("TRANSFERS OUT:", total_transfers_out)
+        
 
         total_assigned = sum(
             assignment.quantity for assignment in assignments
@@ -911,43 +909,118 @@ def view_dashboard(request):
             expenditure.quantity for expenditure in expenditures
         )
 
+       if date:
+            purchases_before = Purchase.objects.filter(
+        base=item.base,
+        equipment_type=item.equipment_type,
+        purchase_date__lt=date
+    )
+
+            transfers_in_before = Transfer.objects.filter(
+        destination_base=item.base,
+        equipment_type=item.equipment_type,
+        status='COMPLETED',
+        transfer_date__lt=date
+    )
+
+            transfers_out_before = Transfer.objects.filter(
+        source_base=item.base,
+        equipment_type=item.equipment_type,
+        status='COMPLETED',
+        transfer_date__lt=date
+    )
+
+            assignments_before = Assignment.objects.filter(
+        base=item.base,
+        equipment_type=item.equipment_type,
+        status='ACTIVE',
+        assigned_date__lt=date
+    )
+
+            expenditures_before = Expenditure.objects.filter(
+        base=item.base,
+        equipment_type=item.equipment_type,
+        expenditure_date__lt=date
+    )
+
+            purchases_before_total = sum(
+        x.quantity for x in purchases_before
+    )
+
+            transfers_in_before_total = sum(
+        x.quantity for x in transfers_in_before
+    )
+
+            transfers_out_before_total = sum(
+        x.quantity for x in transfers_out_before
+    )
+
+            assigned_before_total = sum(
+        x.quantity for x in assignments_before
+    )
+
+            expended_before_total = sum(
+        x.quantity for x in expenditures_before
+    )
+
+            opening_balance = (
+        item.quantity
+        - purchases_before_total
+        - transfers_in_before_total
+        + transfers_out_before_total
+        + assigned_before_total
+        + expended_before_total
+    )
+
+            closing_balance = (
+        opening_balance
+        + total_purchases
+        + total_transfers_in
+        - total_transfers_out
+        - total_assigned
+        - total_expended
+    )
+
+    else:
         net_movement = (
-            total_purchases
-            + total_transfers_in
-            - total_transfers_out
-        )
+        total_purchases
+        + total_transfers_in
+        - total_transfers_out
+    )
 
         opening_balance = (
-            item.quantity
-            - net_movement
-            + total_assigned
-            + total_expended
-        )
+        item.quantity
+        - net_movement
+        + total_assigned
+        + total_expended
+    )
 
-        latest_dates = []
+        closing_balance = item.quantity
 
-        latest_purchase = purchases.order_by('-purchase_date').first()
-        if latest_purchase:
+    latest_dates = []
+
+    latest_purchase = purchases.order_by('-purchase_date').first()
+    if latest_purchase:
             latest_dates.append(latest_purchase.purchase_date)
 
-        latest_transfer_in = transfers_in.order_by('-transfer_date').first()
-        if latest_transfer_in:
+    latest_transfer_in = transfers_in.order_by('-transfer_date').first()
+    if latest_transfer_in:
             latest_dates.append(latest_transfer_in.transfer_date)
 
-        latest_transfer_out = transfers_out.order_by('-transfer_date').first()
-        if latest_transfer_out:
+    latest_transfer_out = transfers_out.order_by('-transfer_date').first()
+    if latest_transfer_out:
             latest_dates.append(latest_transfer_out.transfer_date)
 
-        latest_assignment = assignments.order_by('-assigned_date').first()
-        if latest_assignment:
+    latest_assignment = assignments.order_by('-assigned_date').first()
+    if latest_assignment:
             latest_dates.append(latest_assignment.assigned_date)
 
-        latest_expenditure = expenditures.order_by('-expenditure_date').first()
-        if latest_expenditure:
+    latest_expenditure = expenditures.order_by('-expenditure_date').first()
+    if latest_expenditure:
             latest_dates.append(latest_expenditure.expenditure_date)
 
-        latest_date = max(latest_dates) if latest_dates else "No Activity"
-        data.append({
+    latest_date = max(latest_dates) if latest_dates else "No Activity"
+    data.append({
             'date': latest_date,
             'base': item.base.name,
             'equipment_type': item.equipment_type.name,
