@@ -909,7 +909,7 @@ def view_dashboard(request):
             expenditure.quantity for expenditure in expenditures
         )
 
-       if date:
+        if date:
             purchases_before = Purchase.objects.filter(
         base=item.base,
         equipment_type=item.equipment_type,
